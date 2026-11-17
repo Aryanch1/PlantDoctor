@@ -11,9 +11,8 @@ export const BACKEND_URL = (process.env.EXPO_PUBLIC_BACKEND_URL ?? '').trim();
 export const backendConfigured = BACKEND_URL.length > 0;
 
 /**
- * Set to true once the Firebase project for PlantDoctor exists and the
+ * True now that the Firebase project for PlantDoctor exists and the
  * values in lib/firebase.ts / lib/firebase.native.ts are the real web
- * config. TODO: the project is created at publish time; until then the
- * app runs in full local/guest mode with the accounts UI ready.
+ * config, so Firebase features (accounts, cloud sync) are enabled.
  */
-export const firebaseConfigured = false;
+export const firebaseConfigured = true;
