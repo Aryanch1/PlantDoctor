@@ -12,24 +12,22 @@ import { getFirestore } from '@firebase/firestore';
  * not — it resolves to the browser build, whose sessions are kept in
  * memory only, so users were signed out every time the app closed).
  *
- * TODO (publish step): create the "PlantDoctor" Firebase project under
- * aryanch99999@gmail.com, enable Email/Password + Google sign-in
- * (email-link OFF), add the app's Vercel domain to authorized domains,
- * then paste the real web config below and flip `firebaseConfigured`
- * to true in lib/config.ts. Until then the app runs in local/guest mode.
- * The config values below are placeholders, not a real project.
+ * Firebase project "PlantDoctor" (plantdoctor-f4f18) under
+ * aryanch99999@gmail.com, with Email/Password + Google sign-in
+ * (email-link OFF). The app's Vercel domain is added to authorized
+ * domains, and `firebaseConfigured` is true in lib/config.ts.
  */
 const firebaseConfig = {
-  apiKey: 'TODO_PLANTDOCTOR_FIREBASE_API_KEY',
-  authDomain: 'TODO_PLANTDOCTOR_FIREBASE_PROJECT.firebaseapp.com',
-  projectId: 'TODO_PLANTDOCTOR_FIREBASE_PROJECT',
-  storageBucket: 'TODO_PLANTDOCTOR_FIREBASE_PROJECT.firebasestorage.app',
-  messagingSenderId: 'TODO_PLANTDOCTOR_MESSAGING_SENDER_ID',
-  appId: 'TODO_PLANTDOCTOR_FIREBASE_APP_ID',
+  apiKey: 'AIzaSyBOwdG4v-3Q5IdIVjrz4XNSuqEume3Lw6U',
+  authDomain: 'plantdoctor-f4f18.firebaseapp.com',
+  projectId: 'plantdoctor-f4f18',
+  storageBucket: 'plantdoctor-f4f18.firebasestorage.app',
+  messagingSenderId: '1032819667904',
+  appId: '1:1032819667904:web:851d1d86cc3b127e94ce25',
 };
 
-/** OAuth web client ID for the native Google Sign-In flow (not a secret). TODO: real value at publish time. */
-export const GOOGLE_WEB_CLIENT_ID = 'TODO_PLANTDOCTOR_GOOGLE_WEB_CLIENT_ID';
+/** OAuth web client ID for the native Google Sign-In flow (not a secret). */
+export const GOOGLE_WEB_CLIENT_ID = '1032819667904-3dc9ednaohf2bqtnlb8i2pfqd7fbhu51.apps.googleusercontent.com';
 
 export const firebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
@@ -54,6 +52,7 @@ function createAuth(): firebaseAuth.Auth {
 }
 
 export const auth = createAuth();
+
 export const db = getFirestore(firebaseApp);
 
 export {
