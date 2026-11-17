@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#B4552D",
+        "foregroundImage": "./assets/adaptive-icon.png"
+      },
+      "package": "com.aryanmouli.plantdoctor"
+    },
+    "experiments": {
+      "typedRoutes": true
+    },
+    "icon": "./assets/icon.png",
+    "ios": {
+      "bundleIdentifier": "com.aryanmouli.plantdoctor",
+      "supportsTablet": true
+    },
+    "name": "PlantDoctor",
+    "orientation": "portrait",
+    "plugins": [
+      "expo-router",
+      "expo-asset",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FAF5EC",
+          "image": "./assets/splash.png",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
+      ],
+      "expo-font",
+      "@react-native-google-signin/google-signin",
+      "expo-image-picker"
+    ],
+    "scheme": "plantdoctor",
+    "slug": "plantdoctor",
+    "userInterfaceStyle": "light",
+    "version": "1.0.0",
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "static"
+    }
+  }
+}
