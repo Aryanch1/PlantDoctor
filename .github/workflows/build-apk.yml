@@ -1,0 +1,68 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-apk.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Android project (Expo prebuild)
+        run: npx expo prebuild --platform android
+
+      - name: Build release APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Rename APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk PlantDoctor.apk
+
+      - name: Upload APK as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plantdoctor-apk
+          path: PlantDoctor.apk
+
+      - name: Read app version
+        id: appver
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Publish APK to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-v1.0.0
+          name: PlantDoctor Android APK (v${{ steps.appver.outputs.version }})
+          body: |
+            Installable Android APK for PlantDoctor v${{ steps.appver.outputs.version }}.
+
+            Describe or photograph a plant problem and PlantDoctor gives you a diagnosis — the likely cause, how serious it is, and a numbered care plan — plus a care schedule and plant library. General care guidance only, not a professional diagnosis.
+
+            Note: this build is signed with a debug key (same as a local preview build), so Android may ask you to allow installing from your browser/files the first time.
+          files: PlantDoctor.apk
